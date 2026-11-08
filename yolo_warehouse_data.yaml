@@ -1,0 +1,18 @@
+# Absolute paths make this file usable from the YOLOv12 repository on Windows.
+path: C:/Users/27384/Desktop/大创/Dataset/yolo_outdoor_merge_augmented
+train: images/train
+val: images/val
+test: images/test
+
+nc: 10
+names:
+  0: small cable
+  1: large cable
+  2: large distribution box
+  3: rectangular transformer
+  4: triangular transformer
+  5: small rectangular transformer
+  6: medium distribution box
+  7: second medium distribution box
+  8: small distribution box
+  9: nano distribution box
