@@ -1,0 +1,275 @@
+========================================================================
+Long-term identity matcher training
+device=cuda | cuda=NVIDIA GeForce RTX 4050 Laptop GPU
+tracklets: train=3279, val=890, test=1280 | positive anchors: train=2742, val=824, test=1255
+model: ResNet18(pretrained=False) + quality attention + pair MLP | frames/tracklet=8, crop=224x224, batch_size=16, epochs=20, optimizer=AdamW, scheduler=cosine
+fine-tuning from: longterm_identity\artifacts\run_cached\best.pt | prior_best_val_precision=0.6845
+warning: ResNet18 is randomly initialized. Use --pretrained for transfer learning when weights are available.
+========================================================================
+epoch 1/20 started (205 batches)
+epoch 1/20 batch 20/205 | loss=0.54753 | lr=2.00e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 40/205 | loss=0.54675 | lr=2.00e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 60/205 | loss=0.54362 | lr=2.00e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 80/205 | loss=0.53614 | lr=2.00e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 100/205 | loss=0.54208 | lr=2.00e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 120/205 | loss=0.54171 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 140/205 | loss=0.53849 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 160/205 | loss=0.53660 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 180/205 | loss=0.53169 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 200/205 | loss=0.52912 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 1/20 batch 205/205 | loss=0.52946 | lr=2.00e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 1, "train_loss": 0.5294599209154622, "epoch_seconds": 985.7562126999983, "accuracy": 0.7101123595505618, "precision": 0.6815533980582524, "recall": 0.7887640449438202, "next_learning_rate": 0.00019877498988921623}
+epoch 2/20 started (205 batches)
+epoch 2/20 batch 20/205 | loss=0.52250 | lr=1.99e-04 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 40/205 | loss=0.49992 | lr=1.99e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 60/205 | loss=0.50815 | lr=1.99e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 80/205 | loss=0.50534 | lr=1.99e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 100/205 | loss=0.50339 | lr=1.99e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 120/205 | loss=0.50325 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 140/205 | loss=0.50342 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 160/205 | loss=0.49550 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 180/205 | loss=0.48750 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 200/205 | loss=0.48587 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 2/20 batch 205/205 | loss=0.48656 | lr=1.99e-04 | speed=0.22 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 2, "train_loss": 0.48655523358412217, "epoch_seconds": 1004.0077724000002, "accuracy": 0.7337078651685394, "precision": 0.6954887218045113, "recall": 0.8314606741573034, "next_learning_rate": 0.00019513012337136782}
+saved new best checkpoint: longterm_identity\artifacts\run_finetune\best.pt (val_precision=0.6955)
+epoch 3/20 started (205 batches)
+epoch 3/20 batch 20/205 | loss=0.47071 | lr=1.95e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 40/205 | loss=0.46225 | lr=1.95e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 60/205 | loss=0.47539 | lr=1.95e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 80/205 | loss=0.48417 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 100/205 | loss=0.50139 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 120/205 | loss=0.50169 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 140/205 | loss=0.49703 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 160/205 | loss=0.49521 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 180/205 | loss=0.49247 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 200/205 | loss=0.49679 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 3/20 batch 205/205 | loss=0.49571 | lr=1.95e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 3, "train_loss": 0.4957050247030965, "epoch_seconds": 1019.2896188000013, "accuracy": 0.7348314606741573, "precision": 0.6931608133086876, "recall": 0.8426966292134831, "next_learning_rate": 0.00018915514915674264}
+epoch 4/20 started (205 batches)
+epoch 4/20 batch 20/205 | loss=0.51221 | lr=1.89e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 40/205 | loss=0.51693 | lr=1.89e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 60/205 | loss=0.50084 | lr=1.89e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 80/205 | loss=0.49904 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 100/205 | loss=0.49259 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 120/205 | loss=0.48464 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 140/205 | loss=0.48278 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 160/205 | loss=0.47905 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 180/205 | loss=0.48525 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 200/205 | loss=0.48385 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 4/20 batch 205/205 | loss=0.48682 | lr=1.89e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 4, "train_loss": 0.4868169289040253, "epoch_seconds": 1016.8604324000044, "accuracy": 0.7584269662921348, "precision": 0.7415966386554622, "recall": 0.7932584269662921, "next_learning_rate": 0.0001809971909403073}
+saved new best checkpoint: longterm_identity\artifacts\run_finetune\best.pt (val_precision=0.7416)
+epoch 5/20 started (205 batches)
+epoch 5/20 batch 20/205 | loss=0.48195 | lr=1.81e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 40/205 | loss=0.50163 | lr=1.81e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 60/205 | loss=0.48455 | lr=1.81e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 80/205 | loss=0.49107 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 100/205 | loss=0.48768 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 120/205 | loss=0.48640 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 140/205 | loss=0.48309 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 160/205 | loss=0.47770 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 180/205 | loss=0.47951 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 200/205 | loss=0.47823 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 5/20 batch 205/205 | loss=0.47858 | lr=1.81e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 5, "train_loss": 0.4785755380656378, "epoch_seconds": 1022.1990976000016, "accuracy": 0.7685393258426966, "precision": 0.7637969094922737, "recall": 0.7775280898876404, "next_learning_rate": 0.00017085712472806152}
+saved new best checkpoint: longterm_identity\artifacts\run_finetune\best.pt (val_precision=0.7638)
+epoch 6/20 started (205 batches)
+epoch 6/20 batch 20/205 | loss=0.46268 | lr=1.71e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 40/205 | loss=0.47405 | lr=1.71e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 60/205 | loss=0.47035 | lr=1.71e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 80/205 | loss=0.45565 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 100/205 | loss=0.45269 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 120/205 | loss=0.44899 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 140/205 | loss=0.44566 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 160/205 | loss=0.44893 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 180/205 | loss=0.44501 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 200/205 | loss=0.44311 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 6/20 batch 205/205 | loss=0.44383 | lr=1.71e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 6, "train_loss": 0.44383266705425456, "epoch_seconds": 1013.5434845000054, "accuracy": 0.7685393258426966, "precision": 0.774712643678161, "recall": 0.7573033707865169, "next_learning_rate": 0.00015898463260310112}
+saved new best checkpoint: longterm_identity\artifacts\run_finetune\best.pt (val_precision=0.7747)
+epoch 7/20 started (205 batches)
+epoch 7/20 batch 20/205 | loss=0.48700 | lr=1.59e-04 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 40/205 | loss=0.46317 | lr=1.59e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 60/205 | loss=0.46129 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 80/205 | loss=0.44926 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 100/205 | loss=0.44274 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 120/205 | loss=0.43794 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 140/205 | loss=0.43908 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 160/205 | loss=0.43954 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 180/205 | loss=0.43929 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 200/205 | loss=0.43736 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 7/20 batch 205/205 | loss=0.43755 | lr=1.59e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 7, "train_loss": 0.43755337355085244, "epoch_seconds": 1010.3021419999932, "accuracy": 0.801123595505618, "precision": 0.768, "recall": 0.8629213483146068, "next_learning_rate": 0.00014567205472408495}
+epoch 8/20 started (205 batches)
+epoch 8/20 batch 20/205 | loss=0.45390 | lr=1.46e-04 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 40/205 | loss=0.44414 | lr=1.46e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 60/205 | loss=0.43286 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 80/205 | loss=0.43971 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 100/205 | loss=0.44078 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 120/205 | loss=0.43784 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 140/205 | loss=0.42933 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 160/205 | loss=0.42273 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 180/205 | loss=0.41535 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 200/205 | loss=0.41623 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 8/20 batch 205/205 | loss=0.41666 | lr=1.46e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 8, "train_loss": 0.41665996693372365, "epoch_seconds": 1008.7629980999991, "accuracy": 0.8224719101123595, "precision": 0.8614609571788413, "recall": 0.7685393258426966, "next_learning_rate": 0.00013124719094030732}
+saved new best checkpoint: longterm_identity\artifacts\run_finetune\best.pt (val_precision=0.8615)
+epoch 9/20 started (205 batches)
+epoch 9/20 batch 20/205 | loss=0.42915 | lr=1.31e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 40/205 | loss=0.39846 | lr=1.31e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 60/205 | loss=0.38457 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 80/205 | loss=0.39306 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 100/205 | loss=0.39619 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 120/205 | loss=0.39207 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 140/205 | loss=0.39015 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 160/205 | loss=0.38802 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 180/205 | loss=0.39137 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 200/205 | loss=0.38770 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 9/20 batch 205/205 | loss=0.38726 | lr=1.31e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 9, "train_loss": 0.38725974124246487, "epoch_seconds": 1012.0041958000002, "accuracy": 0.8269662921348314, "precision": 0.8076109936575053, "recall": 0.8584269662921349, "next_learning_rate": 0.00011606522927150302}
+epoch 10/20 started (205 batches)
+epoch 10/20 batch 20/205 | loss=0.40178 | lr=1.16e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 40/205 | loss=0.37104 | lr=1.16e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 60/205 | loss=0.37267 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 80/205 | loss=0.37317 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 100/205 | loss=0.38217 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 120/205 | loss=0.39168 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 140/205 | loss=0.39096 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 160/205 | loss=0.38589 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 180/205 | loss=0.38505 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 200/205 | loss=0.38581 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 10/20 batch 205/205 | loss=0.38485 | lr=1.16e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 10, "train_loss": 0.3848537789062961, "epoch_seconds": 1011.6639888999998, "accuracy": 0.8393258426966292, "precision": 0.8370535714285714, "recall": 0.8426966292134831, "next_learning_rate": 0.00010050000000000003}
+epoch 11/20 started (205 batches)
+epoch 11/20 batch 20/205 | loss=0.35554 | lr=1.01e-04 | speed=0.18 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 40/205 | loss=0.39411 | lr=1.01e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 60/205 | loss=0.39655 | lr=1.01e-04 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 80/205 | loss=0.38602 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 100/205 | loss=0.38719 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 120/205 | loss=0.38869 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 140/205 | loss=0.37924 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 160/205 | loss=0.37167 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 180/205 | loss=0.37542 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 200/205 | loss=0.37379 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 11/20 batch 205/205 | loss=0.37503 | lr=1.01e-04 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 11, "train_loss": 0.3750293700023917, "epoch_seconds": 1009.0313311000064, "accuracy": 0.8033707865168539, "precision": 0.8169014084507042, "recall": 0.7820224719101123, "next_learning_rate": 8.493477072849708e-05}
+epoch 12/20 started (205 batches)
+epoch 12/20 batch 20/205 | loss=0.38330 | lr=8.49e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 40/205 | loss=0.36699 | lr=8.49e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 60/205 | loss=0.35173 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 80/205 | loss=0.35528 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 100/205 | loss=0.35684 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 120/205 | loss=0.35457 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 140/205 | loss=0.35819 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 160/205 | loss=0.34765 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 180/205 | loss=0.35008 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 200/205 | loss=0.34472 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 12/20 batch 205/205 | loss=0.34711 | lr=8.49e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 12, "train_loss": 0.347109137893123, "epoch_seconds": 1006.9377142999947, "accuracy": 0.801123595505618, "precision": 0.7925764192139738, "recall": 0.8157303370786517, "next_learning_rate": 6.975280905969276e-05}
+epoch 13/20 started (205 batches)
+epoch 13/20 batch 20/205 | loss=0.29280 | lr=6.98e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 40/205 | loss=0.31574 | lr=6.98e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 60/205 | loss=0.31702 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 80/205 | loss=0.31503 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 100/205 | loss=0.31480 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 120/205 | loss=0.30582 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 140/205 | loss=0.31463 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 160/205 | loss=0.32174 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 180/205 | loss=0.32771 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 200/205 | loss=0.33187 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 13/20 batch 205/205 | loss=0.33489 | lr=6.98e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 13, "train_loss": 0.3348944293322015, "epoch_seconds": 1004.2101831999971, "accuracy": 0.8101123595505618, "precision": 0.8209302325581396, "recall": 0.7932584269662921, "next_learning_rate": 5.5327945275915107e-05}
+epoch 14/20 started (205 batches)
+epoch 14/20 batch 20/205 | loss=0.36518 | lr=5.53e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 40/205 | loss=0.32890 | lr=5.53e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 60/205 | loss=0.32484 | lr=5.53e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 80/205 | loss=0.33515 | lr=5.53e-05 | speed=0.00 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 100/205 | loss=0.33022 | lr=5.53e-05 | speed=0.00 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 120/205 | loss=0.32061 | lr=5.53e-05 | speed=0.00 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 140/205 | loss=0.32354 | lr=5.53e-05 | speed=0.01 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 160/205 | loss=0.32977 | lr=5.53e-05 | speed=0.01 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 180/205 | loss=0.33182 | lr=5.53e-05 | speed=0.01 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 200/205 | loss=0.33138 | lr=5.53e-05 | speed=0.01 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 14/20 batch 205/205 | loss=0.33301 | lr=5.53e-05 | speed=0.01 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 14, "train_loss": 0.3330142551004323, "epoch_seconds": 25734.876702, "accuracy": 0.8426966292134831, "precision": 0.8521939953810623, "recall": 0.8292134831460675, "next_learning_rate": 4.201536739689894e-05}
+epoch 15/20 started (205 batches)
+epoch 15/20 batch 20/205 | loss=0.30773 | lr=4.20e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 40/205 | loss=0.33269 | lr=4.20e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 60/205 | loss=0.31541 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 80/205 | loss=0.31108 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 100/205 | loss=0.32309 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 120/205 | loss=0.32561 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 140/205 | loss=0.33538 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 160/205 | loss=0.34337 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 180/205 | loss=0.34256 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 200/205 | loss=0.34100 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 15/20 batch 205/205 | loss=0.34036 | lr=4.20e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 15, "train_loss": 0.34036256647866175, "epoch_seconds": 998.3661279999942, "accuracy": 0.8258426966292135, "precision": 0.8310502283105022, "recall": 0.8179775280898877, "next_learning_rate": 3.0142875271938532e-05}
+epoch 16/20 started (205 batches)
+epoch 16/20 batch 20/205 | loss=0.36399 | lr=3.01e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 40/205 | loss=0.35819 | lr=3.01e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 60/205 | loss=0.33402 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 80/205 | loss=0.33168 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 100/205 | loss=0.32831 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 120/205 | loss=0.32407 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 140/205 | loss=0.32035 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 160/205 | loss=0.32455 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 180/205 | loss=0.32591 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 200/205 | loss=0.32754 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 16/20 batch 205/205 | loss=0.32684 | lr=3.01e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 16, "train_loss": 0.32684335770604084, "epoch_seconds": 984.5338002000062, "accuracy": 0.8168539325842696, "precision": 0.8341232227488151, "recall": 0.7910112359550562, "next_learning_rate": 2.0002809059692742e-05}
+epoch 17/20 started (205 batches)
+epoch 17/20 batch 20/205 | loss=0.26510 | lr=2.00e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 40/205 | loss=0.29492 | lr=2.00e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 60/205 | loss=0.30678 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 80/205 | loss=0.31705 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 100/205 | loss=0.32803 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 120/205 | loss=0.32752 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 140/205 | loss=0.32509 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 160/205 | loss=0.32940 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 180/205 | loss=0.32742 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 200/205 | loss=0.32105 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 17/20 batch 205/205 | loss=0.32028 | lr=2.00e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 17, "train_loss": 0.3202822113653333, "epoch_seconds": 996.3405722000025, "accuracy": 0.8089887640449438, "precision": 0.8048780487804879, "recall": 0.8157303370786517, "next_learning_rate": 1.1844850843257407e-05}
+epoch 18/20 started (205 batches)
+epoch 18/20 batch 20/205 | loss=0.31388 | lr=1.18e-05 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 40/205 | loss=0.33344 | lr=1.18e-05 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 60/205 | loss=0.33623 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 80/205 | loss=0.32690 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 100/205 | loss=0.33595 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 120/205 | loss=0.32937 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 140/205 | loss=0.32693 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 160/205 | loss=0.33586 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 180/205 | loss=0.33552 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 200/205 | loss=0.33542 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 18/20 batch 205/205 | loss=0.33334 | lr=1.18e-05 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 18, "train_loss": 0.33333785618113176, "epoch_seconds": 992.9405792999896, "accuracy": 0.8157303370786517, "precision": 0.833729216152019, "recall": 0.7887640449438202, "next_learning_rate": 5.869876628632224e-06}
+epoch 19/20 started (205 batches)
+epoch 19/20 batch 20/205 | loss=0.29483 | lr=5.87e-06 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 40/205 | loss=0.27605 | lr=5.87e-06 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 60/205 | loss=0.28575 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 80/205 | loss=0.29778 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 100/205 | loss=0.30380 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 120/205 | loss=0.30455 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 140/205 | loss=0.31544 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 160/205 | loss=0.31533 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 180/205 | loss=0.31878 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 200/205 | loss=0.32142 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 19/20 batch 205/205 | loss=0.31870 | lr=5.87e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 19, "train_loss": 0.3187044693606407, "epoch_seconds": 989.2588668999961, "accuracy": 0.8258426966292135, "precision": 0.8387850467289719, "recall": 0.8067415730337079, "next_learning_rate": 2.225010110783803e-06}
+epoch 20/20 started (205 batches)
+epoch 20/20 batch 20/205 | loss=0.33904 | lr=2.23e-06 | speed=0.19 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 40/205 | loss=0.32577 | lr=2.23e-06 | speed=0.20 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 60/205 | loss=0.31181 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 80/205 | loss=0.32760 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 100/205 | loss=0.32213 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 120/205 | loss=0.32198 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 140/205 | loss=0.32228 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 160/205 | loss=0.32125 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 180/205 | loss=0.32780 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 200/205 | loss=0.32959 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+epoch 20/20 batch 205/205 | loss=0.32919 | lr=2.23e-06 | speed=0.21 batch/s | gpu_mem=0.25/7.11 GiB
+validation: {"epoch": 20, "train_loss": 0.3291867428816248, "epoch_seconds": 985.1077721000038, "accuracy": 0.797752808988764, "precision": 0.7937915742793792, "recall": 0.8044943820224719, "next_learning_rate": 1e-06}
+test: {"accuracy": 0.78359375, "precision": 0.776255707762557, "recall": 0.796875}
+saved metrics: longterm_identity\artifacts\run_finetune\metrics.json
