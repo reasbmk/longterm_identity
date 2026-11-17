@@ -92,6 +92,54 @@ def focal_infonce_loss(
     return (focal_weight * nce).mean()
 
 
+def focal_pair_nce_loss(
+    embeddings: torch.Tensor,
+    class_ids: torch.Tensor,
+    temperature: float = 0.07,
+    alpha: float = 2.0,
+    keep_weight: float = 1.0,
+) -> torch.Tensor:
+    """逐对（per-pair）加权的 focal 对比损失，实现论文 Focal_Nce 的精确公式。
+
+    在 InfoNCE 的 softmax 求和内部，对每一对正/负样本按各自相似度单独加权：
+
+        ω_p = (1 - z_i·z_p)^α + β   （正样本：相似度越低权重越大 → 收紧类内）
+        ω_n = (z_i·z_n)^α + β       （负样本：相似度越高权重越大 → 拉远类间）
+        E_p = ω_p · exp(z_i·z_p/τ)， E_n = ω_n · exp(z_i·z_n/τ)
+        L_i = -log( Σ_p E_p / (Σ_p E_p + Σ_n E_n) )
+
+    与 focal_infonce_loss 的区别：后者对每个 query 只算一个标量权重 (1-p)^γ；
+    本函数对每一对样本单独加权，粒度更细，更直接地针对难正/难负样本。
+
+    embeddings: [N, D] 已 L2 归一化；class_ids: [N] 整数类别 id；
+    temperature=τ，alpha=α（focal 指数），keep_weight=β（保底权重）。
+    """
+    device = embeddings.device
+    num = embeddings.size(0)
+    # 余弦相似度矩阵（embedding 已 L2 归一化，点积即余弦）
+    similarity = (embeddings @ embeddings.t()).clamp(-1.0, 1.0)
+    ids_equal = class_ids.unsqueeze(0) == class_ids.unsqueeze(1)
+    eye = torch.eye(num, dtype=torch.bool, device=device)
+    pos_mask = ids_equal & ~eye
+    neg_mask = ~ids_equal & ~eye
+
+    # 逐对 focal 权重（由原始相似度计算，与温度无关）
+    w_pos = (1.0 - similarity).pow(alpha) + keep_weight          # 相似度越低权重越大（难正样本）
+    w_neg = similarity.clamp(min=0.0).pow(alpha) + keep_weight   # 相似度越高权重越大（难负样本）
+
+    # 温度缩放 + 数值稳定（减行最大值不改变 softmax 比值）
+    logits = similarity / temperature
+    logits = logits - logits.max(dim=1, keepdim=True).values.detach()
+    exp = logits.exp()
+
+    # 逐对加权后的指数项，按正/负分别求和
+    logit_pos = (w_pos * exp * pos_mask).sum(dim=1)
+    logit_neg = (w_neg * exp * neg_mask).sum(dim=1)
+
+    probability = logit_pos / (logit_pos + logit_neg + 1e-8)
+    return -torch.log(probability + 1e-8).mean()
+
+
 class ArcFace(nn.Module):
     """加性角度 margin 分类头（参考 ArcFace）。"""
 

@@ -9,7 +9,9 @@ env/
 
 # 生成的中间结果 / 数据（体积过大，含 >100MB 文件，GitHub 会拒绝）
 artifacts/
-runs/
+runs/**
+!runs/**/
+!runs/**/metrics.json
 inventory_pipeline/
 *.html
 *.pt

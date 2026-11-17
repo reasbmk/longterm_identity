@@ -16,8 +16,8 @@ from torch.utils.data import DataLoader
 
 from dataset import TrackletPairDataset, identity_of, load_manifest
 from losses import (ArcFace, CenterLoss, CosFace, focal_bce_loss,
-                    focal_infonce_loss, infonce_loss)
-from model import PairMatcher, TrackletEncoder, contrastive_loss
+                    focal_infonce_loss, focal_pair_nce_loss, infonce_loss)
+from model import BACKBONES, PairMatcher, TrackletEncoder, contrastive_loss
 
 
 def split_records_by_sequence(records: list[dict], val_sequences: set[str], test_sequences: set[str]) -> tuple[list[dict], list[dict], list[dict]]:
@@ -119,6 +119,8 @@ def compute_auxiliary_loss(
         return infonce_loss(embeddings, class_ids, args.temperature)
     if args.loss == "focal_nce":
         return focal_infonce_loss(embeddings, class_ids, args.temperature, args.focal_gamma)
+    if args.loss == "focal_pair_nce":
+        return focal_pair_nce_loss(embeddings, class_ids, args.temperature, args.focal_gamma, args.keep_weight)
     if args.loss in ("arcface", "cosface", "center"):
         valid = class_ids >= 0
         if not valid.any():
@@ -141,6 +143,8 @@ def main() -> None:
     parser.add_argument("--scheduler", choices=["cosine", "none"], default="cosine")
     parser.add_argument("--resume", type=Path, default=None, help="Load model weights from a previous best.pt or last.pt.")
     parser.add_argument("--pretrained", action="store_true")
+    parser.add_argument("--backbone", choices=list(BACKBONES), default="resnet18", help="编码器骨干网络（ResNet18/34/50、MobileNetV3-Small）。")
+    parser.add_argument("--cfsa", action="store_true", help="启用跨帧稳定性注意力（CFSA）空间聚合，针对相似物资的细粒度判别。")
     parser.add_argument("--classes", type=int, nargs="*", default=None, help="只训练这些类别（1..10）；省略则全部。")
     parser.add_argument("--split-by", choices=["sequence", "global_id"], default="global_id",
                         help="按序列还是按 global_inventory_id 划分 train/val/test。")
@@ -150,11 +154,12 @@ def main() -> None:
     parser.add_argument("--test-fraction", type=float, default=0.1, help="global_id 划分时测试集物资占比。")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--log-every", type=int, default=20, help="Print training progress every N batches.")
-    parser.add_argument("--loss", choices=["contrastive", "infonce", "focal_nce", "arcface", "cosface", "center", "none"],
+    parser.add_argument("--loss", choices=["contrastive", "infonce", "focal_nce", "focal_pair_nce", "arcface", "cosface", "center", "none"],
                         default="contrastive", help="辅助损失类型（主配对 BCE 始终保留）。")
     parser.add_argument("--loss-weight", type=float, default=0.2, help="辅助损失权重。")
     parser.add_argument("--temperature", type=float, default=0.07, help="InfoNCE / focal NCE 的温度。")
-    parser.add_argument("--focal-gamma", type=float, default=2.0, help="focal BCE / focal NCE 的 gamma。")
+    parser.add_argument("--focal-gamma", type=float, default=2.0, help="focal BCE / focal NCE 的 gamma（focal pair NCE 里用作 α）。")
+    parser.add_argument("--keep-weight", type=float, default=1.0, help="focal pair NCE 的保底权重 β。")
     parser.add_argument("--margin", type=float, default=0.35, help="ArcFace / CosFace 的 margin。")
     parser.add_argument("--scale", type=float, default=64.0, help="ArcFace / CosFace 的 scale。")
     parser.add_argument("--focal-bce", action="store_true", help="主配对 BCE 改用 focal BCE。")
@@ -197,8 +202,8 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # A resume checkpoint already contains the image encoder weights, so it does
     # not need to create/download a fresh ImageNet-initialized backbone first.
-    encoder = TrackletEncoder(pretrained=args.pretrained and args.resume is None).to(device)
-    matcher = PairMatcher().to(device)
+    encoder = TrackletEncoder(pretrained=args.pretrained and args.resume is None, backbone=args.backbone, use_cfsa=args.cfsa).to(device)
+    matcher = PairMatcher(embedding_dim=encoder.feature_dim).to(device)
     # 闭集分类辅助头（ArcFace/CosFace/CenterLoss）需要可学习参数，随主模型一起优化
     aux_loss = None
     if args.loss == "arcface":
@@ -276,6 +281,7 @@ def main() -> None:
         f"loss: BCE{' (focal γ=' + str(args.focal_gamma) + ')' if args.focal_bce else ''} "
         f"+ {args.loss_weight} * {args.loss}"
         f"{' (T=' + str(args.temperature) + ')' if args.loss in ('infonce', 'focal_nce') else ''}"
+        f"{' (T=' + str(args.temperature) + ', alpha=' + str(args.focal_gamma) + ', beta=' + str(args.keep_weight) + ')' if args.loss == 'focal_pair_nce' else ''}"
         f"{' (s=' + str(args.scale) + ', m=' + str(args.margin) + ')' if args.loss in ('arcface', 'cosface') else ''}",
         flush=True,
     )

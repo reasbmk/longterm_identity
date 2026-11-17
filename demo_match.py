@@ -110,10 +110,12 @@ def main() -> None:
     device = "cuda" if torch.cuda.is_available() else "cpu"
     ck = torch.load(CKPT, map_location="cpu", weights_only=False)
 
-    encoder = TrackletEncoder(pretrained=False)
+    backbone = ck.get("args", {}).get("backbone", "resnet18")
+    use_cfsa = ck.get("args", {}).get("cfsa", False)
+    encoder = TrackletEncoder(pretrained=False, backbone=backbone, use_cfsa=use_cfsa)
     encoder.load_state_dict(ck["encoder"])
     encoder.to(device).eval()
-    matcher = PairMatcher()
+    matcher = PairMatcher(embedding_dim=encoder.feature_dim)
     matcher.load_state_dict(ck["matcher"])
     matcher.to(device).eval()
     transform = build_transform()

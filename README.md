@@ -9,7 +9,7 @@
 3. 使用 ResNet-18 图像编码器和质量感知注意力池化，为每条短轨迹生成一个特征向量。
 4. 学习判断两条同类别短轨迹是否属于同一个本地身份。
 
-当前标注只包含本地 ID。本地 ID 只在**同一序列、同一类别**内有效，不能跨序列使用。因此当前训练任务是序列内身份匹配基线，不能将其表述为跨路线库存去重。若要训练真正的跨路线去重模型，需要人工链接同一真实物资，并在清单中加入可靠的 `global_inventory_id`。
+标注同时包含本地 ID 与人工链接后的 `global_inventory_id`。本地 ID 只在**同一序列、同一类别**内有效；`global_inventory_id` 则跨序列标识同一件真实物资。默认 `--split-by global_id` 会按全局物资编号划分 train/val/test，避免同一物资跨路线泄漏；仅当清单没有全局编号时才回退到 `--split-by sequence`（此时是序列内身份匹配基线，不能表述为跨路线去重）。
 
 ## 安装依赖
 
@@ -72,6 +72,24 @@ py -3.11 longterm_identity/train.py `
 `dataset.py` 会在图像进入 ResNet-18 前统一缩放，默认大小为 `224x224`。快速预实验可以使用 `--image-size 160` 或 `128`，但缓存图尺寸应与之对应。检查点会保存该设置，`deduplicate.py` 推理时会自动复用。
 
 生成的 `best.pt` 包含图像编码器、注意力池化器和成对匹配器；`metrics.json` 记录的是短轨迹成对匹配指标，不是仓库最终库存数量的准确率。
+
+### 关键训练选项
+
+- `--loss`：辅助损失（主损失始终是配对二分类 BCE，辅助损失按 `0.2` 权重作用在嵌入上）。可选：
+  `contrastive`（基线）、`infonce`、`focal_nce`（逐 query 焦点 InfoNCE，当前对比中 acc 最高）、`focal_pair_nce`（逐对焦点加权）、`arcface`、`cosface`、`center`、`none`。
+- `--backbone`：编码器骨干。可选 `resnet18`（默认，512 维）、`resnet34`（512 维）、`resnet50`（2048 维，6 GB 显存需降低 batch）、`mobilenet_v3_small`（576 维，适合边缘部署）。`PairMatcher` 输入维随 `4 × feature_dim` 自动调整。
+- `--cfsa`：启用跨帧稳定性注意力（见下）。
+- `--split-by`：`global_id`（默认）或 `sequence`。
+- `--pretrained`：使用 ImageNet 预训练权重。随机初始化 vs 迁移学习是重要的消融变量。
+
+### 跨帧稳定性注意力（CFSA）
+
+`--cfsa` 启用自研模块。它不再用全局平均池化，而是对轨迹 8 帧的空间特征图做两路加权后聚合：
+
+- **通道判别性**：SE 式 MLP 学习哪些通道对区分不同物资更重要；
+- **空间稳定性**：每个空间位置在相邻帧间的余弦一致性越高权重越大，让模型聚焦"跨帧都稳定出现"的物体部件，抑制单帧反光/遮挡噪声。
+
+聚合出的每帧判别性向量仍走质量注意力做帧间加权。该模块针对相似物资的误识别设计，可作为 `--cfsa` 开/关的消融对照。
 
 ## 跟踪后的长期匹配与库存队列
 
@@ -166,20 +184,24 @@ py -3.11 visualize_inventory_pipeline.py `
 
 `--with-map` 会在右侧显示相对图像平面地图与最近轨迹尾线。它不使用相机内参、无人机姿态、GPS 或真实世界坐标重建；它仅用于对照目标 ID、观察短轨迹连续性与 ID 跳变。默认 `--map-smoothing 0.15` 会平滑右侧地图点的视觉移动，`0.08` 更慢，`1.0` 使用未平滑的逐帧图像坐标。左侧检测框与 BoT-SORT 轨迹不会被该可视化平滑改动。颜色代表决策状态，不代表已认证的真实物资身份。
 
-# 序列标注工具
+## 序列标注工具
 
-# 生成 class 2（large cable）
+### 生成 class 2（large cable）
+
 py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 2 --output artifacts/annotate_class2.html
 
-# 一次生成多个类别
+### 一次生成多个类别
+
 py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 1 2 4 --output artifacts/annotate_c124.html
 
-# 只生成某个类别 + 某几个序列
+### 只生成某个类别 + 某几个序列
+
 py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 2 --sequences 001 002 --output artifacts/annotate_c2_001_002.html
 
-# 裁剪图 200px、整帧图 800px
+### 裁剪图 200px、整帧图 800px
+
 py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 3 --output artifacts/annotate_class3.html --crop-size 200 --context-size 800
 
-# 裁剪图采样 12 张（更密一点）
-py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 3 --output artifacts/annotate_class3.html --frames-per-tracklet 12
+### 裁剪图采样 12 张（更密一点）
 
+py -3.11 annotate_global_id.py --manifest artifacts/tracklets_cached_224.jsonl --classes 3 --output artifacts/annotate_class3.html --frames-per-tracklet 12
